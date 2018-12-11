@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import socket from '../socket';
+const commandDelays = require('../../backend/commandDelays');
+// import go from '../../backend/fly';
+const wait = require('waait');
 
 const CommandGrid = styled.div`
   display: grid;
@@ -73,6 +76,22 @@ function sendCommand(command) {
   };
 }
 
+let i = 0;
+async function dronography() {
+  const commands = ['takeoff', 'land', 'takeoff', 'land'];
+  const command = commands[i];
+  const delay = commandDelays[command] + 500;
+  console.log(`running command: ${command}`);
+  sendCommand(command)();
+
+  await wait(delay);
+  i += 1;
+  if (i < commands.length && i > commands.length) {
+    return await dronography();
+  }
+  console.log('done!');
+}
+
 const amount = 100;
 const Commands = () => (
   <CommandGrid>
@@ -121,6 +140,7 @@ const Commands = () => (
     <button onClick={sendCommand('curve 100 100 100 150 250 350 50')}>
       Curve!
     </button>
+    <button onClick={dronography}>Dronography</button>
   </CommandGrid>
 );
 
