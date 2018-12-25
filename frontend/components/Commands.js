@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import socket from '../socket';
+import { sendCommand, dronography } from '../utils/commands';
 const commandDelays = require('../../backend/commandDelays');
-// import go from '../../backend/fly';
-const wait = require('waait');
 
 const CommandGrid = styled.div`
   display: grid;
@@ -68,29 +66,6 @@ const CommandGrid = styled.div`
     color: black;
   }
 `;
-
-function sendCommand(command) {
-  return function() {
-    console.log(`Sending the command ${command}`);
-    socket.emit('command', command);
-  };
-}
-
-let i = 0;
-async function dronography() {
-  const commands = ['takeoff', 'land', 'takeoff', 'land'];
-  const command = commands[i];
-  const delay = commandDelays[command] + 500;
-  console.log(`running command: ${command}`);
-  sendCommand(command)();
-
-  await wait(delay);
-  i += 1;
-  if (i < commands.length && i > commands.length) {
-    return await dronography();
-  }
-  console.log('done!');
-}
 
 const amount = 100;
 const Commands = () => (

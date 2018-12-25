@@ -27,8 +27,8 @@ const Battery = props => (
 );
 
 Battery.defaultProps = {
-  // battery: 'LOADING',
-  battery: 60
+  battery: 'NO BATTERY'
+  // battery: 50
 };
 
 export default Battery;

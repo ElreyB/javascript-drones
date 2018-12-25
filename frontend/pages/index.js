@@ -1,5 +1,6 @@
 import DroneState from '../components/DroneState';
 import Commands from '../components/Commands';
+import Form from '../components/Form/Form';
 
 import styled, { createGlobalStyle } from 'styled-components';
 
@@ -34,6 +35,7 @@ const IndexPage = () => (
     <GlobalStyle />
     <Commands />
     <DroneState />
+    <Form />
   </PageStyles>
 );
 
