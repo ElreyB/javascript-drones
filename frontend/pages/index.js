@@ -34,8 +34,8 @@ const IndexPage = () => (
     <h2>JavaScript Drone</h2>
     <GlobalStyle />
     <Commands />
-    <DroneState />
     <Form />
+    <DroneState />
   </PageStyles>
 );
 
