@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from './Input';
+import { dronographyTwo } from '../../utils/commands';
 
 const FormContainer = styled.form`
   display: flex;
@@ -12,39 +13,49 @@ const FormContainer = styled.form`
 `;
 
 const Form = () => {
-  const [value, setValue] = useState('takeoff');
-  const [choreography, setChoreography] = useState([]);
-  useEffect(
-    () => {
-      console.warn(choreography);
-      const updatedChoreography = [...choreography, value];
-      setChoreography(updatedChoreography);
-    },
-    [value]
-  );
+  // const [value, setValue] = useState('takeoff');
+  // const [valueChange, setValueChange] = useState(false);
+  const [choreography, setChoreography] = useState(['takeoff']);
+  const [amount, setAmount] = useState(100);
+  const [degress, setDegress] = useState(90);
+  // useEffect(
+  //   () => {
+  //     console.warn(choreography);
+  //     let updatedChoreography = [...choreography, value];
+  //     setChoreography(updatedChoreography);
+  //   },
+  //   [value]
+  // );
   const handleClick = e => {
     e.preventDefault();
     const value = e.target.value;
-    console.log(value);
-    setValue(value);
+    // console.log(value);
+    // setValue(value);
+    let updatedChoreography = [...choreography, value];
+    setChoreography(updatedChoreography);
+  };
+  const handleClear = e => {
+    e.preventDefault();
+    setChoreography(['takeoff']);
   };
   return (
     <>
-      <p>{value}</p>
+      {/* <p>{value}</p> */}
+      <p>{console.warn(choreography)}</p>
+      <p>{choreography}</p>
 
-      <p>{console.error(choreography)}</p>
       <FormContainer>
-        <button onClick={handleClick} value="ccw 90">
-          <span>⟲</span> 90°
+        <button onClick={handleClick} value={`ccw ${degress}`}>
+          <span>⟲</span> {degress}°
         </button>
-        <button onClick={handleClick} value="forward">
-          <span>↑</span> forward cm
+        <button onClick={handleClick} value={`forward ${amount}`}>
+          <span>↑</span> forward {amount}cm
         </button>
-        <button onClick={handleClick} value="cw 15">
-          <span>⟳</span> 15°
+        <button onClick={handleClick} value={`cw ${degress}`}>
+          <span>⟳</span> {degress}°
         </button>
-        <button onClick={handleClick} value="left">
-          <span>←</span> left cm
+        <button onClick={handleClick} value={`left ${amount}`}>
+          <span>←</span> left {amount}cm
         </button>
 
         <button onClick={handleClick} value="takeoff">
@@ -61,13 +72,17 @@ const Form = () => {
           <span>→</span>
           right cm
         </button>
-        <button className="height" onClick={handleClick} value="up">
-          <span>⤒</span> cm
+        <button className="height" onClick={handleClick} value={`up ${amount}`}>
+          <span>⤒</span> {amount}cm
         </button>
-        <button onClick={handleClick} value="back">
-          <span>↓</span> back cm
+        <button onClick={handleClick} value={`back ${amount}`}>
+          <span>↓</span> back {amount}cm
         </button>
-        <button className="height" onClick={handleClick} value="down">
+        <button
+          className="height"
+          onClick={handleClick}
+          value={`down ${amount}`}
+        >
           <span>⤓</span> cm
         </button>
         <button onClick={handleClick} value="flip l">
@@ -89,6 +104,12 @@ const Form = () => {
           Curve!
         </button>
       </FormContainer>
+      <button type="button" onClick={() => dronographyTwo(choreography)}>
+        Dronography Two
+      </button>
+      <button type="button" onClick={handleClear}>
+        Clear
+      </button>
     </>
   );
 };
